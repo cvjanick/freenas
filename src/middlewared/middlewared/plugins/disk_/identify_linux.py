@@ -22,7 +22,7 @@ class DiskService(Service, DiskIdentifyBase):
         dev = blkid.BlockDevice(f'/dev/{name}')
         if dev.partitions_exist:
             for partition in dev.partition_data()['partitions']:
-                if partition['partition_type'] not in await self.middleware.call(
+                if partition['type'] not in await self.middleware.call(
                     'disk.get_valid_zfs_partition_type_uuids'
                 ):
                     continue
